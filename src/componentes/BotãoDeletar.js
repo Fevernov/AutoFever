@@ -2,12 +2,12 @@ import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 
-export default function BotaoEnviar({style}){
+export default function BotaoDeletar({style}){
 
     return(
         
         <View style={estilos.botao}>
-            <Feather  name='check' size = {28} color="black"/>
+            <Feather name="x" size={24} color="black" />
         </View>
     )
 }

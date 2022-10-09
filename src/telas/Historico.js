@@ -1,17 +1,18 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import {StyleSheet, View, Image, FlatList, Text, TouchableOpacity} from 'react-native'
-//import Mensagem from '../componentes/BoasVindas'
+import React, { useCallback, useState, useContext } from 'react'
+import {StyleSheet, View, Image, FlatList, TouchableOpacity} from 'react-native'
 import marcaCarro from '../assets/marca.png'
 import { buscaVeiculos } from '../servicos/Veiculos'
 import {Tela} from '../componentes/Telas'
 import Evento from '../componentes/Evento'
 import { Picker } from "@react-native-picker/picker"
 import { buscaEventos } from '../servicos/Eventos'
-import Texto from '../componentes/Texto'
 import { useFocusEffect } from '@react-navigation/native'
 import { buscaAbastecimentos } from '../servicos/Abastecimentos'
+import { VeiculoContext } from '../contexts/veiculo'
 
 export default function Historico({ navigation }){
+
+    const { setVeiculoID } = useContext(VeiculoContext)
 
     const [veiculoSelecionado, setVeiculoSelecionado] = useState()
     const [todosVeiculos, setTodosVeiculos] = useState([])
@@ -26,7 +27,7 @@ export default function Historico({ navigation }){
        const todosEventos = await buscaEventos(veiculoSelecionado)
        const abastecimentos = await buscaAbastecimentos(veiculoSelecionado)
 
-       for (var i=0; i<abastecimentos.lenght; i++){
+       for (var i=0; i<abastecimentos.length; i++){
             todosEventos.push(abastecimentos[i])
        }
 
@@ -37,6 +38,7 @@ export default function Historico({ navigation }){
         useCallback(() => {
             listaVeiculos()
             mostraEventos()
+            setVeiculoID(veiculoSelecionado)
         }, [veiculoSelecionado])
     )
 
@@ -62,8 +64,6 @@ export default function Historico({ navigation }){
                     </Picker> 
                 </View>     
             </View>
-            
-            <Texto>{veiculoSelecionado}</Texto>
 
             <FlatList
                 data={eventos}

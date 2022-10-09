@@ -1,20 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { StyleSheet, KeyboardAvoidingView, View, TextInput, TouchableOpacity, Text} from 'react-native'
 import {MaterialCommunityIcons} from '@expo/vector-icons'
 import {Tela} from '../componentes/Telas'
 import { adicionaVeiculo, atualizaVeiculo, removeVeiculo } from '../servicos/Veiculos'
 import { buscaMarcas } from '../servicos/Marcas'
 import BotaoEnviar from '../componentes/BotãoEnviar'
+import BotaoDeletar from '../componentes/BotãoDeletar'
 import { Picker } from "@react-native-picker/picker"
+import { VeiculoAttContext } from '../contexts/veiculoAtt'
 
 export default function AddCarro({navigation}){
+
+    const {atualizarVeiculo, veiculoParaAtt, setAtualizarVeiculo} = useContext(VeiculoAttContext) 
 
     const [tipoVeiculo, setTipoVeiculo] = useState("Carro")
     const [marcaSelecionada, setMarcaSelecionada] = useState("")
     const [modelo, setModelo] = useState("")
     const [ano, setAno] = useState("")
     const [apelido, setApelido] = useState("")
-
     const [marcasFiltradas, setMarcasFiltradas] = useState([])
 
     async function salvaVeiculo(){
@@ -23,7 +26,7 @@ export default function AddCarro({navigation}){
             marca: marcaSelecionada,
             modelo: modelo,
             ano: ano,
-            apelido: apelido
+            apelido:apelido
         }
         await adicionaVeiculo(veiculo)
     }
@@ -32,33 +35,52 @@ export default function AddCarro({navigation}){
         const marcas = await buscaMarcas(tipoVeiculo)
         setMarcasFiltradas(marcas)
     }
-/*
-    async function ModificaVeiculo(){
-        const veiculo = {
+
+    function handleSave(){
+        atualizarVeiculo? modificaVeiculo() : salvaVeiculo() 
+        setAtualizarVeiculo(false)
+        navigation.navigate('Veiculos')
+    }
+
+    function handleDelete(){
+        deletaVeiculo()
+        setAtualizarVeiculo(false) 
+        navigation.navigate('Veiculos')
+    }
+
+    async function modificaVeiculo(){
+        const veiculoParaModificar = {
             tipo: tipoVeiculo,
-            marca: marca,
+            marca: marcaSelecionada, 
             modelo: modelo,
             ano: ano,
             apelido: apelido,
-            id: '1' //veiculoSelecionado.id
+            id: veiculoParaAtt.id
         }
-        await atualizaVeiculo(veiculo)
+        await atualizaVeiculo(veiculoParaModificar)      
     }
 
     async function deletaVeiculo() {
-        await removeVeiculo(notaSelecionada)
+        await removeVeiculo(veiculoParaAtt)
     }
 
     function preencheForm(){
-        setAno(veiculoSelecionado.ano)
-        setApelido(veiculoSelecionado.apelido)
-        setMarcaSelecionada(veiculoSelecionado.marca)
-        setModelo(veiculoSelecionado.modelo)
-        setTipoVeiculo(veiculoSelecionado.tipo)
+        setAno(veiculoParaAtt.ano.toString()) //
+        setApelido(veiculoParaAtt.apelido)
+        setMarcaSelecionada(veiculoParaAtt.marca)
+        setModelo(veiculoParaAtt.modelo)
+        setTipoVeiculo(veiculoParaAtt.tipo)
     }
-*/
+
     useEffect(() => {
         setaMarcas()
+        if (atualizarVeiculo) { //
+            preencheForm()
+        } 
+
+        return function cleanup() {
+            setAtualizarVeiculo(false)
+        }
     }, [tipoVeiculo])
     
     return (
@@ -129,10 +151,14 @@ export default function AddCarro({navigation}){
                 </View>
             </KeyboardAvoidingView>
 
-            <TouchableOpacity style={estilos.botao} onPress={() => {
-                salvaVeiculo()
-                navigation.navigate('Veiculos')}}>
+            <TouchableOpacity style={estilos.botaoSend} onPress={() => {
+                handleSave()}}>
                 <BotaoEnviar/>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={[estilos.botaoDelete, {display: atualizarVeiculo? 'flex' : 'none'}]} onPress={() => {
+                handleDelete()}}>
+                <BotaoDeletar/>
             </TouchableOpacity>
             
         </Tela>
@@ -163,10 +189,16 @@ const estilos = StyleSheet.create({
         color: '#fff',
         backgroundColor: "#000",
     },
-    botao:{
+    botaoSend:{
         position: 'absolute',
         right: 25,
         bottom: 25,
         elevation: 1
-    }    
+    },
+    botaoDelete:{
+        position: 'absolute',
+        left: 25,
+        bottom: 25,
+        elevation: 1,
+    }  
 })

@@ -18,6 +18,9 @@ import Receita from '../src/telas/Receita'
 import AddLembrete from '../src/telas/AddLembrete'
 import Abastecimento from '../src/telas/Abastecimento'
 import Veiculos from '../src/telas/Veiculos'
+import VeiculoProvider from './contexts/veiculo';
+import VeiculoAttProvider from './contexts/veiculoAtt';
+import EventoAttProvider from './contexts/eventoAtt';
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -85,17 +88,23 @@ export default function Routes(){
 
     return(
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Preload" screenOptions={{ headerTintColor:"#fff", headerStyle:{backgroundColor: '#000'}}}>
-                <Stack.Screen name= "Preload"  component= {Preload} options={{ headerShown: false}}/>
-                <Stack.Screen name= "Tabs" component={Tabs} options={{ headerShown: false }}/>
-                <Stack.Screen name= "Despesa" component={Despesa} />
-                <Stack.Screen name= "Serviço" component={Serviço} />
-                <Stack.Screen name= "Receita" component={Receita} />
-                <Stack.Screen name= "Lembrete" component={AddLembrete} />
-                <Stack.Screen name= "Abastecimento" component={Abastecimento} />
-                <Stack.Screen name= "Veiculos" component={Veiculos} />
-                <Stack.Screen name= "AddCarro" component={AddCarro} />
-            </Stack.Navigator>
+            <VeiculoProvider>
+            <VeiculoAttProvider>
+            <EventoAttProvider>
+                <Stack.Navigator initialRouteName="Preload" screenOptions={{ headerTintColor:"#fff", headerStyle:{backgroundColor: '#000'}}}>
+                    <Stack.Screen name= "Preload"  component= {Preload} options={{ headerShown: false}}/>
+                    <Stack.Screen name= "Tabs" component={Tabs} options={{ headerShown: false }}/>
+                    <Stack.Screen name= "Despesa" component={Despesa} />
+                    <Stack.Screen name= "Serviço" component={Serviço} />
+                    <Stack.Screen name= "Receita" component={Receita} />
+                    <Stack.Screen name= "Lembrete" component={AddLembrete} />
+                    <Stack.Screen name= "Abastecimento" component={Abastecimento} />
+                    <Stack.Screen name= "Veiculos" component={Veiculos} />
+                    <Stack.Screen name= "AddCarro" component={AddCarro} />
+                </Stack.Navigator>
+            </EventoAttProvider>
+            </VeiculoAttProvider>
+            </VeiculoProvider>
         </NavigationContainer>
     )
 }

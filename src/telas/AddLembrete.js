@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { StyleSheet, KeyboardAvoidingView, View, TextInput, TouchableOpacity} from 'react-native';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import {Tela} from '../componentes/Telas';
 import BotaoEnviar from '../componentes/BotãoEnviar';
+import { VeiculoContext } from '../contexts/veiculo'
+
 //ainda falta adicionar target!
 export default function Lembrete(){
+
+    const { veiculoID } = useContext(VeiculoContext)
 
     const [data, setData] = useState("");
     const [lembrete, setLembrete] = useState("");

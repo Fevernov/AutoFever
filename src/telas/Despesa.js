@@ -1,11 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { StyleSheet, KeyboardAvoidingView, View, TextInput, TouchableOpacity} from 'react-native'
 import {MaterialCommunityIcons} from '@expo/vector-icons'
 import {Tela} from '../componentes/Telas'
 import BotaoEnviar from '../componentes/BotãoEnviar'
-import { adicionaEvento } from '../servicos/Eventos'
+import { adicionaEvento, atualizaEvento, removeEvento } from '../servicos/Eventos'
+import { VeiculoContext } from '../contexts/veiculo'
+import { EventoAttContext } from '../contexts/eventoAtt'
+import BotaoDeletar from '../componentes/BotãoDeletar'
 
 export default function Despesa({navigation}){
+
+    const { veiculoID } = useContext(VeiculoContext)
+    const {atualizarEvento, eventoParaAtt, setAtualizarEvento} = useContext(EventoAttContext)
 
     const [hodometro, setHodometro] = useState("")
     const [titulo, setTitulo] = useState("")
@@ -21,10 +27,58 @@ export default function Despesa({navigation}){
             valor: valor,
             local: local,
             obs: obs,
-            veiculo: '38'
+            veiculo: veiculoID
         }
         await adicionaEvento(despesa)
     }
+
+    async function modificaDespesa(){
+        const despesaParaModificar = {
+            tipo: eventoParaAtt.tipo,
+            titulo: titulo,
+            hodometro: hodometro,
+            valor: valor,
+            local: local,
+            obs: obs,
+            veiculo: veiculoID,
+            id: eventoParaAtt.id
+        }
+        await atualizaEvento(despesaParaModificar)
+    }
+
+    function handleSave() {
+        atualizarEvento? modificaDespesa() : salvaDespesa()
+        setAtualizarEvento(false)
+        navigation.navigate('Historico')
+    }
+
+    function handleDelete(){
+        deletaEvento()
+        setAtualizarEvento(false)
+        navigation.navigate('Historico')
+    }
+
+    async function deletaEvento(){
+        await removeEvento(eventoParaAtt)
+    }
+
+    function preencheForm(){
+        setHodometro(eventoParaAtt.hodometro.toString())
+        setTitulo(eventoParaAtt.titulo)
+        setValor(eventoParaAtt.valor.toString())
+        setLocal(eventoParaAtt.local)
+        setObs(eventoParaAtt.obs)
+    }
+
+    useEffect(()=>{
+        if (atualizarEvento){
+            preencheForm()
+        }
+
+        return function cleanup(){
+            setAtualizarEvento(false)
+        }
+    },[])
     
     return (
         <Tela style={{justifyContent: 'center'}}>
@@ -81,9 +135,13 @@ export default function Despesa({navigation}){
             </KeyboardAvoidingView>
 
             <TouchableOpacity style={estilos.botao} onPress={() => {
-                salvaDespesa()
-                navigation.navigate('Historico')}}>
+                handleSave()}}>
                 <BotaoEnviar/>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={[estilos.botaoDelete, {display: atualizarEvento? 'flex' : 'none'}]} onPress={() => {
+                handleDelete()}}>
+                <BotaoDeletar/>
             </TouchableOpacity>
         </Tela>
     )

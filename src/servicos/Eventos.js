@@ -31,7 +31,7 @@ export async function buscaEventos(veiculoSelecionado){
 export async function atualizaEvento(evento){
     return new Promise((resolve, reject) => {
         db.transaction(transaction => {
-            transaction.executeSql("UPDATE Veiculos SET tipo= ?, hodometro= ?, valor= ?, local= ?, obs= ?, veiculo=? WHERE id= ?;", 
+            transaction.executeSql("UPDATE Eventos SET tipo= ?, hodometro= ?, valor= ?, local= ?, obs= ?, veiculo=? WHERE id= ?;", 
             [evento.tipo, evento.hodometro, evento.valor, evento.local, evento.obs, evento.veiculo, evento.id], () => {
                 resolve("Evento atualizado com sucesso!")
             },
