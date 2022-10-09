@@ -170,5 +170,11 @@ const estilos = StyleSheet.create({
         right: 25,
         bottom: 25,
         elevation: 100
+    },
+    botaoDelete:{
+        position: 'absolute',
+        left: 25,
+        bottom: 25,
+        elevation: 1,
     }  
 })
