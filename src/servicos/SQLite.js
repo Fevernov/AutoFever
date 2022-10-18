@@ -41,11 +41,6 @@ export function criaTabela(){
         )
     })
 }
-export function excluiVeiculos(){
-    db.transaction(transaction => {
-        transaction.executeSql("DELETE FROM Veiculos;")
-    })
-}
 
 export function excluiMarcas(){
     db.transaction(transaction => {
@@ -53,14 +48,8 @@ export function excluiMarcas(){
     })
 }
 
-export function excluiEventos(){
-    db.transaction(transaction => {
-        transaction.executeSql("DELETE FROM Eventos;")
-    })
-}
-
 export function excluiTabela(){
     db.transaction(transaction => {
-        transaction.executeSql("DROP TABLE IF EXISTS Abastecimentos;")
+        transaction.executeSql("DROP TABLE IF EXISTS Marcas;")
     })
 }

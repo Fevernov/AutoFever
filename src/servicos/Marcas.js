@@ -19,7 +19,7 @@ export async function adicionaMarcas(){
     return new Promise((resolve, reject) => {
         db.transaction(transaction => {
             transaction.executeSql(
-                "INSERT INTO Marcas (marca, tipo) VALUES " +
+                "INSERT OR REPLACE INTO Marcas (marca, tipo) VALUES " +
                 "(?, ?), " +//(Abarth, Carro)
                 "(?, ?), " +//(Acura, Carro)
                 "(?, ?), " +//(Alfa Romeo, Carro)
@@ -142,11 +142,6 @@ export async function adicionaMarcas(){
                 "Agrale","Ônibus","Iveco","Ônibus","MAN","Ônibus","Marcopolo","Ônibus","Mercedes-Benz","Ônibus","Scania","Ônibus","Volkswagen","Ônibus",
                 "Volvo","Ônibus"],                
                 (transaction, results) => {
-                    if (results.rowsAffected > 0) {
-                      console.log('Inserido dados')
-                    } else {
-                      console.log('Não inserido dados')
-                    }
                     resolve("Marcas adicionados com sucesso!")}, 
                     (_,error) => {
                         reject(error)
