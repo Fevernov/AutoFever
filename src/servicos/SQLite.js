@@ -48,7 +48,7 @@ export function excluiMarcas(){
     })
 }
 
-export function excluiTabela(){
+export function excluiTabelaMarca(){
     db.transaction(transaction => {
         transaction.executeSql("DROP TABLE IF EXISTS Marcas;")
     })
