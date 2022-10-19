@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { NavigationContainer }  from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
@@ -21,6 +21,7 @@ import Veiculos from '../src/telas/Veiculos'
 import VeiculoProvider from './contexts/veiculo';
 import VeiculoAttProvider from './contexts/veiculoAtt';
 import EventoAttProvider from './contexts/eventoAtt';
+import EventosProvider from './contexts/eventos';
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -29,6 +30,7 @@ const Tab = createBottomTabNavigator()
 function Tabs(){
 
     return(
+        
         <Tab.Navigator screenOptions={() => ({
             tabBarActiveTintColor: '#fff',
             tabBarInactiveTintColor: '#777',
@@ -54,7 +56,7 @@ function Tabs(){
             component={Relatorios} 
             options={{ tabBarIcon: ({ size, color }) => (<AntDesign name='areachart' size={size} color={color}/> ) 
             }}  />
-
+            
 
             <Tab.Screen 
             name='Plus' 
@@ -91,6 +93,7 @@ export default function Routes(){
             <VeiculoProvider>
             <VeiculoAttProvider>
             <EventoAttProvider>
+            <EventosProvider>
                 <Stack.Navigator initialRouteName="Preload" screenOptions={{ headerTintColor:"#fff", headerStyle:{backgroundColor: '#000'}}}>
                     <Stack.Screen name= "Preload"  component= {Preload} options={{ headerShown: false}}/>
                     <Stack.Screen name= "Tabs" component={Tabs} options={{ headerShown: false }}/>
@@ -100,8 +103,9 @@ export default function Routes(){
                     <Stack.Screen name= "Lembrete" component={AddLembrete} />
                     <Stack.Screen name= "Abastecimento" component={Abastecimento} />
                     <Stack.Screen name= "Veiculos" component={Veiculos} />
-                    <Stack.Screen name= "AddCarro" component={AddCarro} />
+                    <Stack.Screen name= "Adicionar veiculo" component={AddCarro} />
                 </Stack.Navigator>
+            </EventosProvider>
             </EventoAttProvider>
             </VeiculoAttProvider>
             </VeiculoProvider>

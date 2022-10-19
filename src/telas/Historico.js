@@ -9,11 +9,12 @@ import { buscaEventos } from '../servicos/Eventos'
 import { useFocusEffect } from '@react-navigation/native'
 import { buscaAbastecimentos } from '../servicos/Abastecimentos'
 import { VeiculoContext } from '../contexts/veiculo'
+import { EventosContext } from '../contexts/eventos'
 
 export default function Historico({ navigation }){
 
     const { setVeiculoID } = useContext(VeiculoContext)
-
+    const { setEventosFiltrados } = useContext(EventosContext)
     const [veiculoSelecionado, setVeiculoSelecionado] = useState()
     const [todosVeiculos, setTodosVeiculos] = useState([])
     const [eventos, setEventos] = useState([])
@@ -32,6 +33,7 @@ export default function Historico({ navigation }){
        }
 
        setEventos(todosEventos)
+       setEventosFiltrados(todosEventos)
     }
 
     useFocusEffect(
