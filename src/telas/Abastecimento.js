@@ -3,14 +3,14 @@ import { StyleSheet, View, TextInput, KeyboardAvoidingView, TouchableOpacity} fr
 import {MaterialCommunityIcons} from '@expo/vector-icons'
 import BotaoEnviar from '../componentes/BotãoEnviar'
 import {Tela} from '../componentes/Telas'
-import { adicionaAbastecimento, removeAbastecimento, atualizaAbastecimento } from '../servicos/Abastecimentos'
-import { VeiculoContext } from '../contexts/veiculo'
+import { adicionaEvento, atualizaEvento, removeEvento } from '../servicos/Eventos'
+import { VeiculoAttContext } from '../contexts/veiculoAtt'
 import { EventoAttContext } from '../contexts/eventoAtt'
 import BotaoDeletar from '../componentes/BotãoDeletar'
 
 export default function Abastecimento({navigation}){
 
-    const { veiculoID } = useContext(VeiculoContext)
+    const { veiculoID } = useContext(VeiculoAttContext)
     const {atualizarEvento, eventoParaAtt, setAtualizarEvento} = useContext(EventoAttContext) 
     
     const [hodometro, setHodometro] = useState("")
@@ -34,7 +34,7 @@ export default function Abastecimento({navigation}){
             titulo: obs,
             veiculo: veiculoID
         }
-        await adicionaAbastecimento(abastecimento)
+        await adicionaEvento(abastecimento)
     }
 
     async function modificaAbastecimento(){
@@ -49,7 +49,11 @@ export default function Abastecimento({navigation}){
             veiculo: veiculoID,
             id: eventoParaAtt.id
         }
-        await atualizaAbastecimento(abastecimentoParaModificar)
+        await atualizaEvento(abastecimentoParaModificar)
+    }
+
+    async function deletaEvento(){
+        await removeEvento(eventoParaAtt)
     }
 
     function handleSave() {
@@ -62,10 +66,6 @@ export default function Abastecimento({navigation}){
         deletaEvento()
         setAtualizarEvento(false)
         navigation.navigate('Historico')
-    }
-
-    async function deletaEvento(){
-        await removeAbastecimento(eventoParaAtt)
     }
 
     function preencheForm(){

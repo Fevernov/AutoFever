@@ -7,14 +7,14 @@ import Evento from '../componentes/Evento'
 import { Picker } from "@react-native-picker/picker"
 import { buscaEventos } from '../servicos/Eventos'
 import { useFocusEffect } from '@react-navigation/native'
-import { buscaAbastecimentos } from '../servicos/Abastecimentos'
-import { VeiculoContext } from '../contexts/veiculo'
-import { EventosContext } from '../contexts/eventos'
+import { VeiculoAttContext } from '../contexts/veiculoAtt'
+import { EventoAttContext } from '../contexts/eventoAtt'
 
 export default function Historico({ navigation }){
 
-    const { setVeiculoID } = useContext(VeiculoContext)
-    const { setEventosFiltrados } = useContext(EventosContext)
+    const { setVeiculoID } = useContext(VeiculoAttContext)
+    const { setEventosFiltrados } = useContext(EventoAttContext)
+
     const [veiculoSelecionado, setVeiculoSelecionado] = useState()
     const [todosVeiculos, setTodosVeiculos] = useState([])
     const [eventos, setEventos] = useState([])
@@ -26,11 +26,6 @@ export default function Historico({ navigation }){
 
     async  function mostraEventos(){
        const todosEventos = await buscaEventos(veiculoSelecionado)
-       const abastecimentos = await buscaAbastecimentos(veiculoSelecionado)
-
-       for (var i=0; i<abastecimentos.length; i++){
-            todosEventos.push(abastecimentos[i])
-       }
 
        setEventos(todosEventos)
        setEventosFiltrados(todosEventos)

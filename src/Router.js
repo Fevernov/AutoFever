@@ -2,7 +2,7 @@ import React from 'react'
 import { NavigationContainer }  from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons'
 
 //import Login from './telas/Login'
 import Preload from './telas/Preload'
@@ -18,10 +18,8 @@ import Receita from '../src/telas/Receita'
 import AddLembrete from '../src/telas/AddLembrete'
 import Abastecimento from '../src/telas/Abastecimento'
 import Veiculos from '../src/telas/Veiculos'
-import VeiculoProvider from './contexts/veiculo';
-import VeiculoAttProvider from './contexts/veiculoAtt';
-import EventoAttProvider from './contexts/eventoAtt';
-import EventosProvider from './contexts/eventos';
+import VeiculoAttProvider from './contexts/veiculoAtt'
+import EventoAttProvider from './contexts/eventoAtt'
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -90,10 +88,9 @@ export default function Routes(){
 
     return(
         <NavigationContainer>
-            <VeiculoProvider>
+            
             <VeiculoAttProvider>
             <EventoAttProvider>
-            <EventosProvider>
                 <Stack.Navigator initialRouteName="Preload" screenOptions={{ headerTintColor:"#fff", headerStyle:{backgroundColor: '#000'}}}>
                     <Stack.Screen name= "Preload"  component= {Preload} options={{ headerShown: false}}/>
                     <Stack.Screen name= "Tabs" component={Tabs} options={{ headerShown: false }}/>
@@ -105,10 +102,9 @@ export default function Routes(){
                     <Stack.Screen name= "Veiculos" component={Veiculos} />
                     <Stack.Screen name= "Adicionar veiculo" component={AddCarro} />
                 </Stack.Navigator>
-            </EventosProvider>
             </EventoAttProvider>
             </VeiculoAttProvider>
-            </VeiculoProvider>
+            
         </NavigationContainer>
     )
 }

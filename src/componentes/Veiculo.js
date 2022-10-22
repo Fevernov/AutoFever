@@ -11,12 +11,14 @@ export default function Veiculo({item}){
     const { setVeiculoParaAtt, setAtualizarVeiculo } = useContext(VeiculoAttContext)
     const navigation = useNavigation()
 
+    function handleClick(){
+        setAtualizarVeiculo(true)
+        setVeiculoParaAtt(item)
+        navigation.navigate('Adicionar veiculo')
+    }
+
     return(
-        <TouchableOpacity style={estilos.container} onPress={()=> {
-            setAtualizarVeiculo(true)
-            setVeiculoParaAtt(item)
-            navigation.navigate('AddCarro')
-        }}>
+        <TouchableOpacity style={estilos.container} onPress={()=> {handleClick()}}>
             <Image source={foto} style={estilos.foto}/>
             <View style={estilos.view}>
                 <View style={estilos.view}>
@@ -54,4 +56,4 @@ const estilos = StyleSheet.create({
         borderRadius: 15
     }
     
-});
+})

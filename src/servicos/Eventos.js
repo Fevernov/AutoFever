@@ -3,8 +3,8 @@ import { db } from "./SQLite"
 export async function adicionaEvento(evento){
     return new Promise((resolve, reject) => {
         db.transaction(transaction => {
-            transaction.executeSql("INSERT INTO Eventos (tipo, titulo, hodometro, valor, local, obs, veiculo) VALUES (?, ?, ?, ?, ?, ?, ?);", 
-            [evento.tipo, evento.titulo, evento.hodometro, evento.valor, evento.local, evento.obs, evento.veiculo], () => {
+            transaction.executeSql("INSERT INTO Eventos (tipo, titulo, hodometro, valor, valorPorL, litros, local, obs, veiculo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);", 
+            [evento.tipo, evento.titulo, evento.hodometro, evento.valor, evento.valorPorL, evento.litros, evento.local, evento.obs, evento.veiculo], () => {
                 resolve("Evento adicionado com sucesso!")
             },
             (_,error) => {
@@ -31,7 +31,7 @@ export async function buscaEventos(veiculoSelecionado){
 export async function atualizaEvento(evento){
     return new Promise((resolve, reject) => {
         db.transaction(transaction => {
-            transaction.executeSql("UPDATE Eventos SET tipo= ?, hodometro= ?, valor= ?, local= ?, obs= ?, veiculo=? WHERE id= ?;", 
+            transaction.executeSql("UPDATE Eventos SET tipo= ?, titulo= ?, hodometro= ?, valor= ?, valorPorL= ?, litros= ?, local= ?, obs= ?, veiculo=? WHERE id= ?;", 
             [evento.tipo, evento.hodometro, evento.valor, evento.local, evento.obs, evento.veiculo, evento.id], () => {
                 resolve("Evento atualizado com sucesso!")
             },

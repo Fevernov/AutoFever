@@ -32,12 +32,14 @@ export default function Evento({item}){
             break
     }
 
+    function handleClick(){
+        setAtualizarEvento(true)
+        setEventoParaAtt(item)            
+        navigation.navigate(local)
+    }
+
     return(
-        <TouchableOpacity style={estilos.container} onPress={() => {
-            setAtualizarEvento(true)
-            setEventoParaAtt(item)            
-            navigation.navigate(local)
-        }}>
+        <TouchableOpacity style={estilos.container} onPress={() => {handleClick()}}>
             <MaterialCommunityIcons name={icone} size={50} color="white" />
             <View style={estilos.caixa}>
                 <View>

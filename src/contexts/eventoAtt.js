@@ -7,8 +7,10 @@ export default function EventoAttProvider({children}){
     const [eventoParaAtt, setEventoParaAtt] = useState({})
     const [atualizarEvento, setAtualizarEvento] = useState(false)
 
+    const [eventosFiltrados, setEventosFiltrados] = useState()
+
     return(
-        <EventoAttContext.Provider value={{eventoParaAtt, setEventoParaAtt, atualizarEvento, setAtualizarEvento }}>
+        <EventoAttContext.Provider value={{eventoParaAtt, setEventoParaAtt, atualizarEvento, setAtualizarEvento, eventosFiltrados, setEventosFiltrados }}>
             {children}
         </EventoAttContext.Provider>
     )

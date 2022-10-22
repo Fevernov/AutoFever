@@ -4,13 +4,14 @@ import {MaterialCommunityIcons} from '@expo/vector-icons'
 import {Tela} from '../componentes/Telas'
 import BotaoEnviar from '../componentes/BotãoEnviar'
 import { adicionaEvento, atualizaEvento, removeEvento } from '../servicos/Eventos'
-import { VeiculoContext } from '../contexts/veiculo'
+import { VeiculoAttContext } from '../contexts/veiculoAtt'
 import { EventoAttContext } from '../contexts/eventoAtt'
 import BotaoDeletar from '../componentes/BotãoDeletar'
+import Texto from '../componentes/Texto'
 
 export default function Despesa({navigation}){
 
-    const { veiculoID } = useContext(VeiculoContext)
+    const { veiculoID } = useContext(VeiculoAttContext)
     const {atualizarEvento, eventoParaAtt, setAtualizarEvento} = useContext(EventoAttContext)
 
     const [hodometro, setHodometro] = useState("")
@@ -82,8 +83,8 @@ export default function Despesa({navigation}){
     
     return (
         <Tela style={{justifyContent: 'center'}}>
-            <KeyboardAvoidingView>
 
+            <KeyboardAvoidingView>
 
                 <View style={estilos.view}>
                     <MaterialCommunityIcons name= "counter" size={35} color="white" />

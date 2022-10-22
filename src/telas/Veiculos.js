@@ -27,7 +27,7 @@ export default function Veiculos({navigation}){
                 keyExtractor={veiculo => veiculo.id}
             />
 
-            <TouchableOpacity style={estilos.botao} onPress={() => navigation.navigate('AddCarro')}>
+            <TouchableOpacity style={estilos.botao} onPress={() => navigation.navigate('Adicionar veiculo')}>
                 <BotaoPlus/>
             </TouchableOpacity>
 

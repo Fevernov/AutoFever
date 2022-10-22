@@ -14,6 +14,13 @@ export async function buscaMarcas(tipoVeiculo){
     })
 }
 
+
+export function excluiMarcas(){
+    db.transaction(transaction => {
+        transaction.executeSql("DELETE FROM Marcas;")
+    })
+}
+
 export async function adicionaMarcas(){
 
     return new Promise((resolve, reject) => {

@@ -20,18 +20,12 @@ export function criaTabela(){
         "CREATE TABLE IF NOT EXISTS "+
         "Marcas " +
         "(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, marca TEXT NOT NULL, tipo TEXT NOT NULL);"
-        ) //ainda haverá coluna simbolo e imagem em Marcas
+        ) //ainda haverá coluna simbolo e foto em Marcas
 
         transaction.executeSql(
         "CREATE TABLE IF NOT EXISTS "+
         "Eventos " +
-        "(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, tipo TEXT NOT NULL, titulo TEXT NOT NULL, data DATE NOT NULL DEFAULT CURRENT_DATE, hodometro INTEGER NOT NULL, valor FLOAT NOT NULL, local BLOB, obs TEXT, veiculo INTEGER NOT NULL, FOREIGN KEY([veiculo]) REFERENCES [Veiculos]([id]));"
-        )
-
-        transaction.executeSql(
-        "CREATE TABLE IF NOT EXISTS "+
-        "Abastecimentos " +
-        "(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, tipo TEXT NOT NULL, titulo TEXT, data DATE NOT NULL DEFAULT CURRENT_DATE, hodometro INTEGER NOT NULL, valorPorL FLOAT NOT NULL, valor FLOAT NOT NULL, litros FLOAT NOT NULL, local BLOB, veiculo INTEGER NOT NULL, FOREIGN KEY([veiculo]) REFERENCES [Veiculos]([id]));"
+        "(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, tipo TEXT NOT NULL, titulo TEXT NOT NULL, data DATE NOT NULL DEFAULT CURRENT_DATE, hodometro INTEGER NOT NULL, valor FLOAT NOT NULL, valorPorL FLOAT, litros FLOAT, local BLOB, obs TEXT, veiculo INTEGER NOT NULL, FOREIGN KEY([veiculo]) REFERENCES [Veiculos]([id]));"
         )
 
         transaction.executeSql(
@@ -42,13 +36,13 @@ export function criaTabela(){
     })
 }
 
-export function excluiMarcas(){
+export function exclui(){
     db.transaction(transaction => {
         transaction.executeSql("DELETE FROM Marcas;")
     })
 }
 
-export function excluiTabelaMarca(){
+export function excluiTabela(){
     db.transaction(transaction => {
         transaction.executeSql("DROP TABLE IF EXISTS Marcas;")
     })

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { StyleSheet, KeyboardAvoidingView, View, TextInput, TouchableOpacity, Text} from 'react-native'
+import { StyleSheet, KeyboardAvoidingView, View, TextInput, TouchableOpacity } from 'react-native'
 import {MaterialCommunityIcons} from '@expo/vector-icons'
 import {Tela} from '../componentes/Telas'
 import { adicionaVeiculo, atualizaVeiculo, removeVeiculo } from '../servicos/Veiculos'
@@ -38,13 +38,11 @@ export default function AddCarro({navigation}){
 
     function handleSave(){
         atualizarVeiculo? modificaVeiculo() : salvaVeiculo() 
-        setAtualizarVeiculo(false)
         navigation.navigate('Veiculos')
     }
 
     function handleDelete(){
         deletaVeiculo()
-        setAtualizarVeiculo(false) 
         navigation.navigate('Veiculos')
     }
 
@@ -57,7 +55,7 @@ export default function AddCarro({navigation}){
             apelido: apelido,
             id: veiculoParaAtt.id
         }
-        await atualizaVeiculo(veiculoParaModificar)      
+        await atualizaVeiculo(veiculoParaModificar)   
     }
 
     async function deletaVeiculo() {
@@ -65,20 +63,22 @@ export default function AddCarro({navigation}){
     }
 
     function preencheForm(){
-        setAno(veiculoParaAtt.ano.toString()) //
-        setApelido(veiculoParaAtt.apelido)
-        setMarcaSelecionada(veiculoParaAtt.marca)
-        setModelo(veiculoParaAtt.modelo)
+
         setTipoVeiculo(veiculoParaAtt.tipo)
+        setAno(veiculoParaAtt.ano.toString())
+        setApelido(veiculoParaAtt.apelido)
+        setModelo(veiculoParaAtt.modelo)
+        setMarcaSelecionada(veiculoParaAtt.marca)
     }
 
     useEffect(() => {
         setaMarcas()
-        if (atualizarVeiculo) { //
-            preencheForm()
-        } 
 
-        return function cleanup() {
+        if (atualizarVeiculo) { 
+            preencheForm()
+        }
+
+        return function cleanup(){
             setAtualizarVeiculo(false)
         }
     }, [tipoVeiculo])
@@ -150,6 +150,8 @@ export default function AddCarro({navigation}){
                         onChangeText={setAno}/>
                 </View>
             </KeyboardAvoidingView>
+
+            
 
             <TouchableOpacity style={estilos.botaoSend} onPress={() => {
                 handleSave()}}>
