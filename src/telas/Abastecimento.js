@@ -47,6 +47,7 @@ export default function Abastecimento({navigation}){
             local: local,
             titulo: obs,
             veiculo: veiculoID,
+            data: eventoParaAtt.data,
             id: eventoParaAtt.id
         }
         await atualizaEvento(abastecimentoParaModificar)
@@ -89,8 +90,9 @@ export default function Abastecimento({navigation}){
 
     return (
         <Tela style={{justifyContent: 'center'}}>
+
             <KeyboardAvoidingView>
-                
+
                 <View style={estilos.view}>
                     <MaterialCommunityIcons name= "counter" size={35} color="white" />
                     <TextInput style={estilos.input}  

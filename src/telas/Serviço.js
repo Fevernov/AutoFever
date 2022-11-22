@@ -41,6 +41,7 @@ export default function Serviço({navigation}){
             local: local,
             obs: obs,
             veiculo: veiculoID,
+            data: eventoParaAtt.data,
             id: eventoParaAtt.id
         }
         await atualizaEvento(servicoParaModificar)

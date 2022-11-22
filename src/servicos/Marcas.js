@@ -17,7 +17,7 @@ export async function buscaMarcas(tipoVeiculo){
 
 export function excluiMarcas(){
     db.transaction(transaction => {
-        transaction.executeSql("DELETE FROM Marcas;")
+        transaction.executeSql("DELETE FROM IF EXISTS Marcas;")
     })
 }
 

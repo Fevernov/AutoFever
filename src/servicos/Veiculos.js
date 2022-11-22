@@ -3,8 +3,8 @@ import { db } from "./SQLite"
 export async function adicionaVeiculo(veiculo){
     return new Promise((resolve, reject) => {
         db.transaction(transaction => {
-            transaction.executeSql("INSERT INTO Veiculos (tipo, marca, modelo, ano, apelido) VALUES (?, ?, ?, ?, ?);", 
-            [veiculo.tipo, veiculo.marca, veiculo.modelo, veiculo.ano, veiculo.apelido], () => {
+            transaction.executeSql("INSERT INTO Veiculos (tipo, marca, modelo, ano, hodometro) VALUES (?, ?, ?, ?, ?);", 
+            [veiculo.tipo, veiculo.marca, veiculo.modelo, veiculo.ano, veiculo.hodometro], () => {
                 resolve("Veiculo adicionado com sucesso!")
             },
             (_,error) => {
@@ -31,8 +31,8 @@ export async function buscaVeiculos(){
 export async function atualizaVeiculo(veiculo){
     return new Promise((resolve, reject) => {
         db.transaction(transaction => {
-            transaction.executeSql("UPDATE Veiculos SET tipo= ?, marca= ?, modelo= ?, ano= ?, apelido= ? WHERE id= ?;", 
-            [veiculo.tipo, veiculo.marca, veiculo.modelo, veiculo.ano, veiculo.apelido, veiculo.id], () => {
+            transaction.executeSql("UPDATE Veiculos SET tipo= ?, marca= ?, modelo= ?, ano= ?, hodometro= ? WHERE id= ?;", 
+            [veiculo.tipo, veiculo.marca, veiculo.modelo, veiculo.ano, veiculo.hodometro, veiculo.id], () => {
                 resolve("Veiculo atualizado com sucesso!")
             },
             (_,error) => {

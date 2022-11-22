@@ -40,6 +40,7 @@ export default function Receita({navigation}){
             local: "",
             obs: obs,
             veiculo: veiculoID,
+            data: eventoParaAtt.data,
             id: eventoParaAtt.id
         }
         await atualizaEvento(receitaParaModificar)

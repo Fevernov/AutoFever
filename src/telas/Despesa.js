@@ -42,6 +42,7 @@ export default function Despesa({navigation}){
             local: local,
             obs: obs,
             veiculo: veiculoID,
+            data: eventoParaAtt.data,
             id: eventoParaAtt.id
         }
         await atualizaEvento(despesaParaModificar)
@@ -85,16 +86,6 @@ export default function Despesa({navigation}){
         <Tela style={{justifyContent: 'center'}}>
 
             <KeyboardAvoidingView>
-
-                <View style={estilos.view}>
-                    <MaterialCommunityIcons name= "counter" size={35} color="white" />
-                    <TextInput style={estilos.input}  
-                        placeholder= "Hodômetro" 
-                        placeholderTextColor= '#fff' 
-                        keyboardType="numeric"
-                        value={hodometro}
-                        onChangeText={setHodometro}/>
-                </View>
 
                 <View style={estilos.view}>
                     <MaterialCommunityIcons name= "chart-bell-curve" size={35} color="white" />

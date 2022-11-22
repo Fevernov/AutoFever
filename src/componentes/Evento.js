@@ -45,7 +45,7 @@ export default function Evento({item}){
                 <View>
                     <Texto>{item.tipo}</Texto>
                     <Texto>{item.titulo}</Texto>
-                    <Texto>{item.hodometro} Km</Texto>
+                    <Texto>{item.hodometro} {item.hodometro? "km" : ""}</Texto>
                 </View>
                 <View style={{justifyContent: 'space-between'}}>
                     <Texto>{item.data}</Texto>

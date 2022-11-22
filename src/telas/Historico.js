@@ -20,15 +20,19 @@ export default function Historico({ navigation }){
     const [eventos, setEventos] = useState([])
 
     async  function listaVeiculos(){
+        
         const veiculos = await buscaVeiculos()
+
         setTodosVeiculos(veiculos)
     }
 
     async  function mostraEventos(){
-       const todosEventos = await buscaEventos(veiculoSelecionado)
+        if (todosVeiculos.length > 0) {
+            const todosEventos = await buscaEventos(veiculoSelecionado)
 
-       setEventos(todosEventos)
-       setEventosFiltrados(todosEventos)
+            setEventos(todosEventos)
+            setEventosFiltrados(todosEventos)
+        }
     }
 
     useFocusEffect(
@@ -67,6 +71,7 @@ export default function Historico({ navigation }){
                 renderItem={(evento) => <Evento {...evento} />}
                 keyExtractor={evento => evento.id}
             />
+            
 
         </Tela>
     )

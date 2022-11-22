@@ -25,13 +25,13 @@ export default function Veiculo({item}){
                     <Image source={marca} style={estilos.marca}/>
                     <Texto> {item.marca}</Texto>
                 </View>
-                <Texto>{item.modelo} | {item.apelido}</Texto>
-                <Texto>{item.ano}</Texto>
+                <Texto>{item.modelo} | {item.hodometro} km</Texto>
+                <Texto style={{position:'absolute', right: 5}}>{item.ano}</Texto>
             </View>
         </TouchableOpacity>
     )
     
-};
+}
 
 const estilos = StyleSheet.create({
     container: {
@@ -46,14 +46,14 @@ const estilos = StyleSheet.create({
     },
     view:{
         flexDirection: 'row',
-        justifyContent:'space-around',
         alignItems:'center',
         height: 40,
+        marginHorizontal: 5
     },
     marca:{
         height: 30,
         width: 30,
-        borderRadius: 15
+        borderRadius: 15,
     }
     
 })

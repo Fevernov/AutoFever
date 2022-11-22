@@ -73,11 +73,10 @@ function Tabs(){
                 tabBarIcon: ({ size, color }) => (<AntDesign name='clockcircleo' size={size} color={color}/>) 
             }}  />
 
-
             <Tab.Screen 
-            name='Mais' 
-            component={Mais} 
-            options={{ tabBarIcon: ({ size, color }) => (<AntDesign name='ellipsis1' size={size} color={color}/>) 
+            name='Veiculos'
+            component={Veiculos} 
+            options={{ tabBarIcon: ({ size, color }) => (<AntDesign name='car' size={size} color={color}/>) 
             }}  />
 
         </Tab.Navigator>
@@ -99,7 +98,6 @@ export default function Routes(){
                     <Stack.Screen name= "Receita" component={Receita} />
                     <Stack.Screen name= "Lembrete" component={AddLembrete} />
                     <Stack.Screen name= "Abastecimento" component={Abastecimento} />
-                    <Stack.Screen name= "Veiculos" component={Veiculos} />
                     <Stack.Screen name= "Adicionar veiculo" component={AddCarro} />
                 </Stack.Navigator>
             </EventoAttProvider>

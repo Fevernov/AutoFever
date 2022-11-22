@@ -44,13 +44,6 @@ export default function Plus({ navigation }){
                     </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={()=> navigation.navigate('Veiculos')}>
-                    <View style={estilos.box}>
-                        <MaterialCommunityIcons name="car-multiple" size={24} color="white" />
-                        <Texto>Veículo</Texto>            
-                    </View>
-                </TouchableOpacity>
-
                 <TouchableOpacity onPress={()=> navigation.navigate('Abastecimento')}>
                     <View style={estilos.box}>
                         <MaterialCommunityIcons name="gas-station" size={24} color="white" />

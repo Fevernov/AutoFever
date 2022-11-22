@@ -16,6 +16,7 @@ export default function Veiculos({navigation}){
 
     useEffect(() => {
         mostraVeiculos()
+
     }, [veiculos])
 
     return (
@@ -33,7 +34,7 @@ export default function Veiculos({navigation}){
 
         </Tela>
     )
-};
+}
 
 const estilos = StyleSheet.create({
     botao:{

@@ -17,7 +17,7 @@ export default function AddCarro({navigation}){
     const [marcaSelecionada, setMarcaSelecionada] = useState("")
     const [modelo, setModelo] = useState("")
     const [ano, setAno] = useState("")
-    const [apelido, setApelido] = useState("")
+    const [hodometro, setHodometro] = useState("")
     const [marcasFiltradas, setMarcasFiltradas] = useState([])
 
     async function salvaVeiculo(){
@@ -26,7 +26,7 @@ export default function AddCarro({navigation}){
             marca: marcaSelecionada,
             modelo: modelo,
             ano: ano,
-            apelido:apelido
+            hodometro: hodometro
         }
         await adicionaVeiculo(veiculo)
     }
@@ -52,7 +52,7 @@ export default function AddCarro({navigation}){
             marca: marcaSelecionada, 
             modelo: modelo,
             ano: ano,
-            apelido: apelido,
+            hodometro: hodometro,
             id: veiculoParaAtt.id
         }
         await atualizaVeiculo(veiculoParaModificar)   
@@ -63,12 +63,11 @@ export default function AddCarro({navigation}){
     }
 
     function preencheForm(){
-
         setTipoVeiculo(veiculoParaAtt.tipo)
         setAno(veiculoParaAtt.ano.toString())
-        setApelido(veiculoParaAtt.apelido)
+        setHodometro(veiculoParaAtt.hodometro.toString())
         setModelo(veiculoParaAtt.modelo)
-        setMarcaSelecionada(veiculoParaAtt.marca)
+        let timer = setTimeout(()=>setMarcaSelecionada(veiculoParaAtt.marca), 300)
     }
 
     useEffect(() => {
@@ -87,7 +86,6 @@ export default function AddCarro({navigation}){
         <Tela style={{justifyContent: 'center'}}>
             
             <KeyboardAvoidingView>
-                
                 <View style={estilos.view}>
                     <MaterialCommunityIcons name= "car" size={35} color="white" />
                     <Picker 
@@ -105,12 +103,13 @@ export default function AddCarro({navigation}){
                 </View>  
                 
                 <View style={estilos.view}>
-                    <MaterialCommunityIcons name= "alien" size={35} color="white" />
+                    <MaterialCommunityIcons name= "counter" size={35} color="white" />
                     <TextInput style={estilos.input}  
-                        placeholder= "Apelido" 
+                        placeholder= "Hodômetro" 
                         placeholderTextColor= '#fff' 
-                        value={apelido}
-                        onChangeText={setApelido}/>
+                        keyboardType="numeric"
+                        value={hodometro}
+                        onChangeText={setHodometro}/>
                 </View>
                 
                 <View style={estilos.view}>
