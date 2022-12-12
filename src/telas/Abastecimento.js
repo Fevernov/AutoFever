@@ -31,7 +31,7 @@ export default function Abastecimento({navigation}){
             valor: valor,
             litros: litros,
             local: local,
-            titulo: obs,
+            obs: obs,
             veiculo: veiculoID
         }
         await adicionaEvento(abastecimento)
@@ -45,7 +45,7 @@ export default function Abastecimento({navigation}){
             valor: valor,
             litros: litros,
             local: local,
-            titulo: obs,
+            obs: obs,
             veiculo: veiculoID,
             data: eventoParaAtt.data,
             id: eventoParaAtt.id
@@ -58,9 +58,22 @@ export default function Abastecimento({navigation}){
     }
 
     function handleSave() {
-        atualizarEvento? modificaAbastecimento() : salvaAbastecimento()
-        setAtualizarEvento(false)
-        navigation.navigate('Historico')
+        if (valor && hodometro && veiculoID){
+            atualizarEvento? modificaAbastecimento() : salvaAbastecimento()
+            setAtualizarEvento(false)
+            navigation.navigate('Historico')
+        }
+        else {
+            if (!hodometro){
+                alert('Adicione o hodômetro atual do veículo para melhor funcionamento do app.')
+            }
+            else if (!valor){
+                alert('Adicione o valor do abastecimento!')
+            }
+            else {
+                alert('Não há um veículo selecionado.')
+            }
+        }
     }
 
     function handleDelete(){

@@ -7,14 +7,12 @@ import { adicionaEvento, atualizaEvento, removeEvento } from '../servicos/Evento
 import { VeiculoAttContext } from '../contexts/veiculoAtt'
 import { EventoAttContext } from '../contexts/eventoAtt'
 import BotaoDeletar from '../componentes/BotãoDeletar'
-import Texto from '../componentes/Texto'
 
 export default function Despesa({navigation}){
 
     const { veiculoID } = useContext(VeiculoAttContext)
     const {atualizarEvento, eventoParaAtt, setAtualizarEvento} = useContext(EventoAttContext)
 
-    const [hodometro, setHodometro] = useState("")
     const [titulo, setTitulo] = useState("")
     const [valor, setValor] = useState("")
     const [local, setLocal] = useState("")
@@ -24,7 +22,6 @@ export default function Despesa({navigation}){
         const despesa = {
             tipo: "Despesa",
             titulo: titulo,
-            hodometro: hodometro,
             valor: valor,
             local: local,
             obs: obs,
@@ -37,7 +34,6 @@ export default function Despesa({navigation}){
         const despesaParaModificar = {
             tipo: eventoParaAtt.tipo,
             titulo: titulo,
-            hodometro: hodometro,
             valor: valor,
             local: local,
             obs: obs,
@@ -49,9 +45,19 @@ export default function Despesa({navigation}){
     }
 
     function handleSave() {
-        atualizarEvento? modificaDespesa() : salvaDespesa()
-        setAtualizarEvento(false)
-        navigation.navigate('Historico')
+        if (valor && titulo){
+            atualizarEvento? modificaDespesa() : salvaDespesa()
+            setAtualizarEvento(false)
+            navigation.navigate('Historico')
+        }
+        else {
+            if (!titulo){
+                alert('Adicionar um titulo facilitará o entendimento posterior da sua despesa.')
+            }
+            else {
+                alert('Adicione o valor da despesa.')
+            }
+        }
     }
 
     function handleDelete(){
@@ -65,7 +71,6 @@ export default function Despesa({navigation}){
     }
 
     function preencheForm(){
-        setHodometro(eventoParaAtt.hodometro.toString())
         setTitulo(eventoParaAtt.titulo)
         setValor(eventoParaAtt.valor.toString())
         setLocal(eventoParaAtt.local)

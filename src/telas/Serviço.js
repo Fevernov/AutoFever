@@ -48,9 +48,22 @@ export default function Serviço({navigation}){
     }
 
     function handleSave() {
-        atualizarEvento? modificaServico() : salvaServico()
-        setAtualizarEvento(false)
-        navigation.navigate('Historico')
+        if (valor && hodometro && titulo){
+            atualizarEvento? modificaServico() : salvaServico()
+            setAtualizarEvento(false)
+            navigation.navigate('Historico')
+        }
+        else {
+            if (!titulo){
+                alert('Adicionar um titulo facilitará o entendimento posterior do serviço.')
+            }
+            else if (!hodometro){
+                alert('Adicione o hodômetro atual do veículo para melhor funcionamento do app.')
+            }
+            else {
+                alert('Adicione o valor do serviço.')
+            }
+        }
     }
 
     function handleDelete(){
@@ -85,6 +98,15 @@ export default function Serviço({navigation}){
     return (
         <Tela style={{justifyContent: 'center'}}>
             <KeyboardAvoidingView>
+                
+                <View style={estilos.view}>
+                    <MaterialCommunityIcons name= "car-wrench" size={35} color="white" />
+                    <TextInput style={estilos.input} 
+                        placeholder= "Titulo"
+                        placeholderTextColor= '#fff' 
+                        value={titulo}
+                        onChangeText={setTitulo}/>
+                </View>
 
                 <View style={estilos.view}>
                     <MaterialCommunityIcons name= "counter" size={35} color="white" />
@@ -94,15 +116,6 @@ export default function Serviço({navigation}){
                         keyboardType="numeric"
                         value={hodometro}
                         onChangeText={setHodometro}/>
-                </View>
-                
-                <View style={estilos.view}>
-                    <MaterialCommunityIcons name= "car-wrench" size={35} color="white" />
-                    <TextInput style={estilos.input} 
-                        placeholder= "Titulo"
-                        placeholderTextColor= '#fff' 
-                        value={titulo}
-                        onChangeText={setTitulo}/>
                 </View>
 
                 <View style={estilos.view}>

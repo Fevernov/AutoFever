@@ -31,7 +31,7 @@ export function criaTabela(){
         transaction.executeSql(
         "CREATE TABLE IF NOT EXISTS "+
         "Lembretes " +
-        "(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, data DATE NOT NULL DEFAULT CURRENT_DATE, lembrete TEXT NOT NULL, target BLOB NOT NULL, veiculo INTEGER NOT NULL, FOREIGN KEY([veiculo]) REFERENCES [Veiculos]([id]));"
+        "(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, data DATE NOT NULL DEFAULT CURRENT_DATE, lembrete TEXT NOT NULL, target DATE NOT NULL, veiculo INTEGER NOT NULL, FOREIGN KEY([veiculo]) REFERENCES [Veiculos]([id]));"
         )
     })
 }

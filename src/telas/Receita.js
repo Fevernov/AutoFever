@@ -47,9 +47,14 @@ export default function Receita({navigation}){
     }
 
     function handleSave() {
-        atualizarEvento? modificaReceita() : salvaReceita()
-        setAtualizarEvento(false)
-        navigation.navigate('Historico')
+        if (valor){
+            atualizarEvento? modificaReceita() : salvaReceita()
+            setAtualizarEvento(false)
+            navigation.navigate('Historico')
+        }
+        else {
+            alert('Adicione o valor da receita.')
+        }
     }
 
     function handleDelete(){
@@ -84,6 +89,15 @@ export default function Receita({navigation}){
             <KeyboardAvoidingView>
 
                 <View style={estilos.view}>
+                    <MaterialCommunityIcons name= "chart-box-plus-outline" size={35} color="white" />
+                    <TextInput style={estilos.input} 
+                        placeholder= "Titulo"
+                        placeholderTextColor= '#fff' 
+                        value={titulo}
+                        onChangeText={setTitulo}/>
+                </View> 
+
+                <View style={estilos.view}>
                     <MaterialCommunityIcons name= "counter" size={35} color="white" />
                     <TextInput style={estilos.input}  
                         placeholder= "Hodômetro" 
@@ -92,15 +106,6 @@ export default function Receita({navigation}){
                         value={hodometro}
                         onChangeText={setHodometro}/>
                 </View>
-                
-                <View style={estilos.view}>
-                    <MaterialCommunityIcons name= "chart-box-plus-outline" size={35} color="white" />
-                    <TextInput style={estilos.input} 
-                        placeholder= "Titulo"
-                        placeholderTextColor= '#fff' 
-                        value={titulo}
-                        onChangeText={setTitulo}/>
-                </View> 
 
                 <View style={estilos.view}>
                     <MaterialCommunityIcons name= "cash-multiple" size={35} color="white" />

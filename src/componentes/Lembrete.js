@@ -1,9 +1,12 @@
-import React from "react";
-import { StyleSheet, View } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
-import Texto from "./Texto";
+import React from "react"
+import { StyleSheet, View } from 'react-native'
+import { MaterialIcons } from '@expo/vector-icons'
+import Texto from "./Texto"
 
-export default function Lembrete({motivo, data}){
+export default function Lembrete(){
+
+    
+
     return(
         <View style={estilos.container}>
             <MaterialIcons name="notifications" size={50} color="white" />
@@ -19,7 +22,7 @@ export default function Lembrete({motivo, data}){
         </View>
     )
     
-};
+}
 
 const estilos = StyleSheet.create({
     container: {
@@ -31,7 +34,6 @@ const estilos = StyleSheet.create({
         alignItems:'center',
     },
     container2:{
-        //backgroundColor:'grey',
         justifyContent:'space-between', 
         flexDirection:'row', 
         height:'100%',
@@ -39,16 +41,14 @@ const estilos = StyleSheet.create({
         width: 265
     },
     view: {
-        //backgroundColor:'black',
         height:'100%',
         justifyContent: 'space-around',
         width:'80%'
     },
     view2: {
-        //backgroundColor:'black',
         height:'100%',
         width: 50,
         justifyContent:'center',
         alignItems:'flex-end'
-    },
-});
+    }
+})

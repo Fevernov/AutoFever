@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { StyleSheet, Dimensions } from 'react-native'
+import { StyleSheet, Dimensions, View, TextInput } from 'react-native'
 import { Tela } from '../componentes/Telas'
 import { EventoAttContext } from '../contexts/eventoAtt'
 import { Picker } from "@react-native-picker/picker"
 import { PieChart, StackedBarChart } from "react-native-chart-kit"
+import Texto from '../componentes/Texto'
+import {MaterialIcons} from '@expo/vector-icons'
 
 export default function Relatorios(){
 
@@ -13,15 +15,18 @@ export default function Relatorios(){
 
     const [dadosComp, setDadosComp] = useState([{name: "AutoFever", valor: 100, color: "#3E424B", legendFontColor: "#fff", legendFontSize: 15}])
     const [dadosDxR, setdadosDxR] = useState([{name: "AutoFever", valor: 100, color: "#3E424B", legendFontColor: "#fff", legendFontSize: 15}])
-    const [dadosGM, setDadosGM] = useState({labels: ["AutoFever"], legend: ["Autofever"], data: [[100]], barColors: "#dfe4ea"})
+    const [dadosGM, setDadosGM] = useState({labels: ["AutoFever"], legend: ["AutoFever"], data: [[100]], barColors: ["#3E424B"]})
 
     const [ switchComp, setSwitchComp] = useState('flex')
     const [ switchDxR, setSwitchDxR] = useState('none')
     const [ switchGM, setSwitchGM] = useState('none')
     const [ switchCxKm, setSwitchCxKm] = useState('none')
 
+    const [alcool, setAlcool] = useState()
+    const [gasolina, setGasolina] = useState()
 
-    const categorias = ["Gráfico comparativo de gastos", "Gráfico gastos x receitas", "Gráfico de saldo trimestral", "Gráfico de gastos", "Custo por kilômetro"] // [pizza, pizza, stackedBar, tabela]   desejo: Contribution graph (heatmap)
+
+    const categorias = ["Gráfico comparativo de gastos", "Gráfico gastos x receitas", "Gráfico de saldo trimestral", "Calculadora flex", "Custo por kilômetro"] // [pizza, pizza, stackedBar, tabela]   desejo: Contribution graph (heatmap)
 
     function setDadosPieComp(){
         
@@ -178,7 +183,6 @@ export default function Relatorios(){
         useShadowColorFromDataset: false // optional
     }
 
-
     useEffect(() => {
         setGraphs()
         setSwitches()
@@ -234,13 +238,34 @@ export default function Relatorios(){
             <StackedBarChart
                 data={dadosGM}
                 width={Dimensions.get('window').width}
-                height={220}
+                height={300}
                 chartConfig={chartConfig}
                 style ={{
                     display: switchGM,
                     color: '#fff'
                 }}
             />
+
+            <View style={estilos.container}>
+                <Texto style={{fontSize: 25}}>Calculadora Flex</Texto>
+                <View style={estilos.caixa}>
+                    <Texto>Álcool</Texto>
+                    <TextInput style={estilos.input}  
+                        placeholder="R$" 
+                        placeholderTextColor= '#fff' 
+                        keyboardType="numeric"
+                        value={alcool}
+                        onChangeText={setAlcool}/>
+                    <Texto>Gasolina</Texto>
+                    <TextInput style={estilos.input}  
+                        placeholder="R$" 
+                        placeholderTextColor= '#fff' 
+                        keyboardType="numeric"
+                        value={gasolina}
+                        onChangeText={setGasolina}/>
+                </View>
+                <Texto style={{fontSize: 15}} >{(alcool < 0,74*gasolina)? "Vale a pena abastecer com álcool." : "Vale a pena abastecer com gasolina."}</Texto>
+            </View>
                     
         </Tela>
     )
@@ -253,4 +278,28 @@ const estilos = StyleSheet.create({
         color: '#fff',
         backgroundColor: "#000",
     },
+    input: {
+        borderWidth: 1,
+        paddingLeft: 10,
+        paddingVertical:3,
+        borderRadius: 30,
+        borderColor: '#fff',
+        width: 60,
+        height: 40,
+        color: '#fff',
+        marginHorizontal: 10
+    },
+    container: {
+        backgroundColor: '#666',
+        marginTop: 15,
+        width: '98%',
+        padding: 5,
+        height: 150
+    },
+    caixa: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        marginVertical: 15,
+        alignItems: 'center'
+    }
 })

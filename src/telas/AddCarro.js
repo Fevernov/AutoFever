@@ -37,8 +37,18 @@ export default function AddCarro({navigation}){
     }
 
     function handleSave(){
-        atualizarVeiculo? modificaVeiculo() : salvaVeiculo() 
-        navigation.navigate('Veiculos')
+        if (modelo && ano && hodometro){
+            atualizarVeiculo? modificaVeiculo() : salvaVeiculo() 
+            navigation.navigate('Veiculos')
+        }
+        else {
+            if (!titulo){
+                alert('Adicione um titulo à despesa!')
+            }
+            else if (!valor){
+                alert('Adicione o valor da despesa!')
+            }
+        }
     }
 
     function handleDelete(){
@@ -101,17 +111,7 @@ export default function AddCarro({navigation}){
                         <Picker.Item label="Ônibus" value="Ônibus"/>
                     </Picker>
                 </View>  
-                
-                <View style={estilos.view}>
-                    <MaterialCommunityIcons name= "counter" size={35} color="white" />
-                    <TextInput style={estilos.input}  
-                        placeholder= "Hodômetro" 
-                        placeholderTextColor= '#fff' 
-                        keyboardType="numeric"
-                        value={hodometro}
-                        onChangeText={setHodometro}/>
-                </View>
-                
+
                 <View style={estilos.view}>
                     <MaterialCommunityIcons name= "car-info" size={35} color="white" />
                     <Picker 
@@ -127,9 +127,8 @@ export default function AddCarro({navigation}){
                             })
                         }
                     </Picker>
-                    
-                </View>
-                
+                </View>            
+
                 <View style={estilos.view}>
                     <MaterialCommunityIcons name= "car-select" size={35} color="white" />
                     <TextInput style={estilos.input}  
@@ -138,7 +137,7 @@ export default function AddCarro({navigation}){
                         value={modelo}
                         onChangeText={setModelo}/>
                 </View>
-                
+
                 <View style={estilos.view}>
                     <MaterialCommunityIcons name= "car-clock" size={35} color="white" />
                     <TextInput style={estilos.input}  
@@ -148,6 +147,17 @@ export default function AddCarro({navigation}){
                         value={ano}
                         onChangeText={setAno}/>
                 </View>
+
+                <View style={estilos.view}>
+                    <MaterialCommunityIcons name= "counter" size={35} color="white" />
+                    <TextInput style={estilos.input}  
+                        placeholder= "Hodômetro" 
+                        placeholderTextColor= '#fff' 
+                        keyboardType="numeric"
+                        value={hodometro}
+                        onChangeText={setHodometro}/>
+                </View>                
+
             </KeyboardAvoidingView>
 
             
